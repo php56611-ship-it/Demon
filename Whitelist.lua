@@ -35,7 +35,6 @@ end
 
 -- Sistema de Whitelist com expiração
 local WhitelistData = {
-    ["hiro909088"] = {type = "Dono", expires = nil}, -- Permanente
     ["drakeee777"] = {type = "Staff", expires = nil}, -- Permanente
     ["grabriel_9990"] = {type = "Staff", expires = nil}, -- Permanente
     ["rmss_2012"] = {type = "Staff", expires = nil}, -- Permanente
