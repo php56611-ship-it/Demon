@@ -13,6 +13,7 @@ local WhitelistData = {
     ["ronaldbl20"] = {type = "Dono", expires = nil},
     ["miuuq_333"] = {type = "Usuario-Admin", expires = nil},
     ["Lsksjjwlskso"] = {type = "Sub Dono", expires = nil},
+    ["teste"] = {type = "Dono", expires = nil},
 }
 
 return WhitelistData
