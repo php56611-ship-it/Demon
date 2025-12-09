@@ -26,7 +26,6 @@ local Autorizados = {
     ["ronaldbl20"] = "Dono",
     ["miuuq_333"] = "Usuario-Admin",
     ["Lsksjjwlskso"] = "Sub Dono",
-    ["teste"] = "Usuario-Admin",
 }
 
 --// Jogadores ativos
