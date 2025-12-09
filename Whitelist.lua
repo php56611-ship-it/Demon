@@ -12,7 +12,6 @@ end)
 
 --// Autorizados e tags
 local Autorizados = {
-    ["Zelaojg"] = "Dono",
     ["defia_5uw"] = "Sub-Dono",
     ["Douglas_confortavel0"] = "Usuario-Admin",
     ["Ma872thus"] = "Staff / Dev",
