@@ -168,6 +168,141 @@ local Donos = {
     ["slingshotmate8h"] = true,
     ["gamer_dirvedidap"] = true,
     ["rmss_2012"] = true,
+}local WhitelistData = {
+    ["hiro909088"] = {type = "Dono", expires = nil    ["teste"] = {type = "Usuário ADM", expires = nil},
+}, -- Permanente
+    ["drakeee777"] = {type = "Staff", expires = nil}, -- Permanente
+    ["grabriel_9990"] = {type = "Staff", expires = nil}, -- Permanente
+    ["rmss_2012"] = {type = "Staff", expires = nil}, -- Permanente
+    ["gamer_dirvedidap"] = {type = "Staff", expires = nil}, -- Permanente
+    ["slingshotmate8h"] = {type = "Staff", expires = nil}, -- Permanente
+    ["torajuiorsudud7"] = {type = "Staff", expires = nil}, -- Permanente
+    ["thebest09520"] = {type = "Dono", expires = nil}, -- Permanente
+    ["miuuq_333"] = {type = "Usuário ADM", expires = nil}, -- Permanente
+    ["eusouumbacome"] = {type = "Usuário ADM", expires = nil}, -- Permanente
+    ["ryehd52835"] = {type = "Usuário ADM", expires = parseDateTime("15/01/2026 23:59")},
+    ["pelotocino_x80"] = {type = "Usuário ADM", expires = parseDateTime("14/11/2025 23:59")},
+    ["camirurge"] = {type = "Usuário ADM", expires = parseDateTime("06/12/2025 14:00")},
+    ["shinidert10"] = {type = "Usuário ADM", expires = parseDateTime("15/12/2030 23:59")},
+    ["caiozn7_669"] = {type = "Usuário ADM", expires = parseDateTime("15/12/2030 23:59")},
+    ["donarzissus"] = {type = "Usuário ADM", expires = parseDateTime("15/12/2030 23:59")},
+    ["vampzinkkj_1"] = {type = "Usuário ADM", expires = parseDateTime("15/12/2030 23:59")},
+    ["ppyszt"] = {type = "Usuário ADM", expires = parseDateTime("7/01/2026 18:30")},
+    ["pedro_roneido"] = {type = "Usuário ADM", expires = parseDateTime("10/01/2030 12:00")},
+    ["pedro_roneido20"] = {type = "Usuário ADM", expires = parseDateTime("10/01/2030 12:00")},
+    ["ixi362"] = {type = "Usuário ADM", expires = parseDateTime("05/01/2030 15:45")},
+    ["jifhgiu"] = {type = "Usuário ADM", expires = parseDateTime("25/12/2030 20:00")},
+    ["piloto158d"] = {type = "Usuário ADM", expires = parseDateTime("30/12/2030 14:20")},
+    ["rafaelgms7810396"] = {type = "Usuário ADM", expires = parseDateTime("25/12/2030 20:00")},
+    ["ilu1_22"] = {type = "Usuário ADM", expires = parseDateTime("08/01/2030 10:30")},
+    ["xmarcelo_27262"] = {type = "Usuário ADM", expires = parseDateTime("12/01/2030 16:15")},
+    ["ryansididd"] = {type = "Usuário ADM", expires = parseDateTime("03/01/2030 09:00")},
+    ["redz_hub99975"] = {type = "Usuário ADM", expires = parseDateTime("28/12/2030 22:45")},
+    ["teteu0902201mc"] = {type = "Usuário ADM", expires = parseDateTime("15/01/2030 11:30")},
+    ["amongus23445844sad"] = {type = "Usuário ADM", expires = parseDateTime("18/12/2030 19:20")},
+    ["ttyyryjuh"] = {type = "Usuário ADM", expires = parseDateTime("22/12/2030 13:10")},
+    ["kevin_oliverra10"] = {type = "Usuário ADM", expires = parseDateTime("07/01/2030 17:40")},
+    ["eduard0k0"] = {type = "Usuário ADM", expires = parseDateTime("14/01/2030 08:50")},
+    ["gh707080s"] = {type = "Usuário ADM", expires = parseDateTime("31/12/2030 23:59")},
+    ["luroblox1262"] = {type = "Usuário ADM", expires = parseDateTime("06/01/2030 14:25")},
+    ["bonasamigo"] = {type = "Usuário ADM", expires = parseDateTime("19/10/2030 14:30")},
+    ["manopp72"] = {type = "Usuário ADM", expires = parseDateTime("25/10/2025 18:40")},
+    ["zack_89901"] = {type = "Usuário ADM", expires = parseDateTime("25/10/2025 18:40")},
+    ["rackffr9"] = {type = "Usuário ADM", expires = parseDateTime("20/11/2025 18:40")},
+    ["oibuto7"] = {type = "Usuário ADM", expires = parseDateTime("31/10/2025 14:40")},
+    ["ensisbsjbrhe"] = {type = "Usuário ADM", expires = parseDateTime("09/10/2030 19:40")},
+    ["gui_neh1023"] = {type = "Usuário ADM", expires = parseDateTime("09/10/2030 19:40")},
+    ["killert_494"] = {type = "Usuário ADM", expires = parseDateTime("09/10/2030 19:40")},
+    ["teste"] = {type = "Usuário ADM", expires = nil},
+}
+
+-- Função para verificar se a whitelist está expirada
+local function isWhitelistExpired(username)
+    local userData = WhitelistData[username:lower()]
+    if not userData then
+        return true, "Não está na whitelist"
+    end
+    
+    if userData.expires then
+        local currentTime = getCurrentTimestamp()
+        if currentTime > userData.expires then
+            return true, "Whitelist expirada em " .. formatDate(userData.expires)
+        end
+        return false, "Válida até " .. formatDate(userData.expires)
+    end
+    
+    return false, "PERMANENTE"
+end
+
+-- Função para obter tipo de usuário com verificação de expiração
+local function getUserWhitelistType(username)
+    local expired, message = isWhitelistExpired(username)
+    if expired then
+        return nil, message
+    end
+    
+    local userData = WhitelistData[username:lower()]
+    return userData.type, message
+end
+
+-- Função para verificar whitelist no início
+local function verifyWhitelistOnStart()
+    local username = LocalPlayer.Name:lower()
+    local userType, statusMessage = getUserWhitelistType(username)
+    
+    if not userType then
+        task.wait(2)
+        local kickMessage = "❌ WHITELIST VERIFICATION FAILED!\n\n"
+        kickMessage = kickMessage .. "Status: " .. statusMessage .. "\n\n"
+        kickMessage = kickMessage .. "Entre em contato com o desenvolvedor para renovar sua whitelist."
+        LocalPlayer:Kick(kickMessage)
+        return false, statusMessage
+    end
+    
+    print("[Demon Hub] Whitelist verificada com sucesso!")
+    print("[Demon Hub] Usuário:", username)
+    print("[Demon Hub] Tipo:", userType)
+    print("[Demon Hub] Status:", statusMessage)
+    
+    return true, userType
+end
+
+-- Monitorar expiração em tempo real
+local function monitorWhitelistExpiration()
+    while true do
+        task.wait(30) -- Verifica a cada 30 segundos
+        
+        local username = LocalPlayer.Name:lower()
+        local expired, message = isWhitelistExpired(username)
+        
+        if expired then
+            task.wait(2)
+            LocalPlayer:Kick("❰ 🎃 ❱ WHITELIST EXPIROU!\n\nSua whitelist expirou.\nEntre em contato com o desenvolvedor.\n\nStatus: " .. message)
+            return
+        end
+    end
+end
+
+-- Executar verificação inicial
+local isWhitelisted, whitelistStatus = verifyWhitelistOnStart()
+if not isWhitelisted then
+    return
+end
+
+-- Iniciar monitoramento de expiração
+task.spawn(monitorWhitelistExpiration)
+
+-- Lista de donos autorizados (apenas para controle do painel admin)
+local Donos = {
+    ["hiro909088"] = true,
+    ["pedriinn222"] = true,
+    ["thebest09520"] = true,
+    ["donarzissus"] = true, 
+    ["rafaelgms7810396"] = true,
+    ["grabriel_9990"] = true,
+    ["slingshotmate8h"] = true,
+    ["gamer_dirvedidap"] = true,
+    ["rmss_2012"] = true,
 }
 
 -- ===== SISTEMA DE TAGS PARA TODOS OS USUÁRIOS DA WHITELIST =====
