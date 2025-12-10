@@ -82,7 +82,6 @@ local WhitelistData = {
     ["oibuto7"] = {type = "Usuário ADM", expires = parseDateTime("31/10/2025 14:40")},
     ["ensisbsjbrhe"] = {type = "Usuário ADM", expires = parseDateTime("09/10/2030 19:40")},
     ["gui_neh1023"] = {type = "Usuário ADM", expires = parseDateTime("09/10/2030 19:40")},
-    ["killert_494"] = {type = "Usuário ADM", expires = parseDateTime("09/10/2030 19:40")},
     ["wolfgang_227"] = {type = "Staff", expires = nil},
 }
 
