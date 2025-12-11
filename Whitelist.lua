@@ -1,4 +1,4 @@
--- Serviços
+-- Última atualização: 2025-12-10 23:17:01
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local TextChatService = game:GetService("TextChatService")
